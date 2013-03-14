@@ -163,6 +163,19 @@ class TestPyramidBeakerSessionObject(unittest.TestCase):
         self.failUnless(token)
         self.assertEqual(session['_csrft_'], token)
 
+    def test_id_none_on_cookie_session(self):
+        request = DummyRequest()
+        session = self._makeOne(request,type='cookie')
+        session_id = session.id
+        self.assertIsNone(session_id)
+
+    def test_id_on_noncookie_session(self):
+        request = DummyRequest()
+        session = self._makeOne(request)
+        session_id = session.id
+        self.assertIsNotNone(session_id)
+
+
 class Test_session_factory_from_settings(unittest.TestCase):
     def _callFUT(self, settings):
         from pyramid_beaker import session_factory_from_settings

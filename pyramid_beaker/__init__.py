@@ -19,6 +19,7 @@ def BeakerSessionFactoryConfig(**options):
         _cookie_on_exception = _options.pop('cookie_on_exception', True)
         def __init__(self, request):
             SessionObject.__init__(self, request.environ, **self._options)
+
             def session_callback(request, response):
                 exception = getattr(request, 'exception', None)
                 if (exception is None or self._cookie_on_exception
@@ -29,6 +30,13 @@ def BeakerSessionFactoryConfig(**options):
                         response.headerlist.append(
                             ('Set-Cookie', headers['cookie_out']))
             request.add_response_callback(session_callback)
+            
+        @property
+        def id(self):
+            # this is as inspected in SessionObject.__init__
+            if self.__dict__['_params'].get('type') != 'cookie':
+                return self.__dict__['_sess'].id
+            return None
 
         # ISession API
 
