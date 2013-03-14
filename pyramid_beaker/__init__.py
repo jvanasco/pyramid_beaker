@@ -35,7 +35,7 @@ def BeakerSessionFactoryConfig(**options):
         def id(self):
             # this is as inspected in SessionObject.__init__
             if self.__dict__['_params'].get('type') != 'cookie':
-                return self.__dict__['_sess'].id
+                return self._session().id
             return None
 
         # ISession API
