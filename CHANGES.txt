@@ -1,3 +1,9 @@
+Unreleased
+------------------
+[jvanasco]
+- add .id attribute to proxy underlying session id
+
+
 0.6.1 (2011-11-19)
 ------------------
 
